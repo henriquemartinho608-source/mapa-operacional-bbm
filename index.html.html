@@ -1,0 +1,455 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mapa Operacional BBM / Translovato</title>
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+
+<style>
+
+body{
+    margin:0;
+    font-family:Arial, sans-serif;
+}
+
+#map{
+    width:100%;
+    height:100vh;
+}
+
+.legend{
+    background:white;
+    padding:12px;
+    border-radius:10px;
+    line-height:1.8;
+    box-shadow:0 0 12px rgba(0,0,0,0.25);
+}
+
+.popup-title{
+    font-weight:bold;
+    font-size:16px;
+    margin-bottom:6px;
+}
+
+.topbar{
+    position:absolute;
+    z-index:1000;
+    top:10px;
+    left:50%;
+    transform:translateX(-50%);
+    background:white;
+    padding:10px 20px;
+    border-radius:12px;
+    box-shadow:0 0 10px rgba(0,0,0,0.25);
+    font-weight:bold;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="topbar">
+🚛 Mapa Operacional BBM / Translovato - Apoio Mecânico Diesel
+</div>
+
+<div id="map"></div>
+
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+<script>
+
+const map = L.map('map').setView([-24.5,-49],5);
+
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
+    attribution:'© OpenStreetMap'
+}).addTo(map);
+
+// ================== ÍCONES ==================
+
+const oficinaIcon = new L.Icon({
+    iconUrl:'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png',
+    shadowUrl:'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+    iconSize:[25,41],
+    iconAnchor:[12,41]
+});
+
+const filialIcon = new L.Icon({
+    iconUrl:'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-blue.png',
+    shadowUrl:'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+    iconSize:[25,41],
+    iconAnchor:[12,41]
+});
+
+// ================== ROTAS ==================
+
+const rotas = [
+
+[[ -31.77,-52.49 ],[ -29.95,-51.09 ]],
+[[ -29.95,-51.09 ],[ -29.17,-51.18 ]],
+[[ -29.17,-51.18 ],[ -26.92,-48.95 ]],
+[[ -26.92,-48.95 ],[ -25.53,-49.20 ]],
+[[ -25.53,-49.20 ],[ -23.31,-51.16 ]],
+[[ -25.53,-49.20 ],[ -23.45,-46.53 ]],
+[[ -25.53,-49.20 ],[ -23.53,-46.79 ]],
+[[ -25.53,-49.20 ],[ -22.90,-47.06 ]],
+[[ -22.90,-47.06 ],[ -19.92,-43.94 ]],
+[[ -22.90,-47.06 ],[ -22.90,-43.20 ]],
+[[ -8.28,-35.03 ],[ -7.56,-35.00 ]],
+[[ -24.32,-50.61 ],[ -23.53,-46.79 ]]
+
+];
+
+rotas.forEach(rota => {
+
+    L.polyline(rota,{
+        color:'blue',
+        weight:4,
+        opacity:0.75
+    }).addTo(map);
+
+});
+
+// ================== FILIAIS ==================
+
+const filiais = [
+
+['BBM Capão do Leão','Capão do Leão/RS',-31.77,-52.49],
+['BBM Cachoeirinha','Cachoeirinha/RS',-29.95,-51.09],
+['BBM Caxias do Sul','Caxias do Sul/RS',-29.17,-51.18],
+['BBM Gaspar','Gaspar/SC',-26.92,-48.95],
+['Translovato São José dos Pinhais','São José dos Pinhais/PR',-25.53,-49.20],
+['Translovato Londrina','Londrina/PR',-23.31,-51.16],
+['Translovato Guarulhos','Guarulhos/SP',-23.45,-46.53],
+['Gwest Osasco','Osasco/SP',-23.53,-46.79],
+['Translovato Campinas','Campinas/SP',-22.90,-47.06],
+['Translovato Belo Horizonte','Belo Horizonte/MG',-19.92,-43.94],
+['Translovato Rio de Janeiro','Rio de Janeiro/RJ',-22.90,-43.20],
+['BBM Cabo de Santo Agostinho','Cabo de Santo Agostinho/PE',-8.28,-35.03],
+['BBM Goiana','Goiana/PE',-7.56,-35.00],
+['BBM Telêmaco Borba','Telêmaco Borba/PR',-24.32,-50.61]
+
+];
+
+filiais.forEach(f => {
+
+    const marker = L.marker([f[2],f[3]],{
+        icon:filialIcon
+    }).addTo(map);
+
+    marker.bindPopup(`
+        <div class="popup-title">${f[0]}</div>
+        <b>Cidade:</b> ${f[1]}<br>
+        <b>Tipo:</b> Filial Operacional
+    `);
+
+    marker.bindTooltip(`
+        <b>${f[0]}</b><br>
+        📍 ${f[1]}<br>
+        🏢 Filial Operacional
+    `,{
+        permanent:false,
+        direction:'top',
+        opacity:0.95
+    });
+
+});
+
+// ================== OFICINAS ==================
+
+const oficinas = [
+
+{
+nome:'BK Diesel',
+cidade:'Camaquã/RS',
+telefone:'(51) 99999-4101',
+tipo:'Socorro Diesel Pesado',
+rota:'Capão do Leão → Cachoeirinha',
+lat:-30.85,
+lng:-51.81
+},
+
+{
+nome:'Tribolli Mecânica Total',
+cidade:'Tapes/RS',
+telefone:'(51) 99985-7721',
+tipo:'Diesel / Elétrica',
+rota:'Capão do Leão → Cachoeirinha',
+lat:-30.67,
+lng:-51.40
+},
+
+{
+nome:'Cargo Sul Diesel',
+cidade:'Montenegro/RS',
+telefone:'(51) 3632-9090',
+tipo:'Mecânica Caminhões',
+rota:'Cachoeirinha → Caxias do Sul',
+lat:-29.68,
+lng:-51.46
+},
+
+{
+nome:'Turbo Diesel Caminhões',
+cidade:'Farroupilha/RS',
+telefone:'(54) 99971-2210',
+tipo:'Socorro Rodoviário',
+rota:'Cachoeirinha → Caxias do Sul',
+lat:-29.23,
+lng:-51.35
+},
+
+{
+nome:'Mecânica Diesel Zilli',
+cidade:'Vacaria/RS',
+telefone:'(54) 3231-1844',
+tipo:'Diesel Caminhões',
+rota:'Caxias do Sul → Gaspar',
+lat:-28.51,
+lng:-50.94
+},
+
+{
+nome:'Guará Diesel',
+cidade:'Lages/SC',
+telefone:'(49) 3224-4455',
+tipo:'Socorro Rodoviário',
+rota:'Caxias do Sul → Gaspar',
+lat:-27.81,
+lng:-50.32
+},
+
+{
+nome:'Correia Pinto Diesel',
+cidade:'Correia Pinto/SC',
+telefone:'(49) 3243-1162',
+tipo:'Diesel Pesado',
+rota:'Caxias do Sul → Gaspar',
+lat:-27.58,
+lng:-50.36
+},
+
+{
+nome:'Joinville Truck Diesel',
+cidade:'Joinville/SC',
+telefone:'(47) 3436-5521',
+tipo:'Socorro BR-101',
+rota:'Caxias do Sul → Gaspar',
+lat:-26.30,
+lng:-48.84
+},
+
+{
+nome:'Diesel Joinville Workshop',
+cidade:'Joinville/SC',
+telefone:'(47) 98814-2201',
+tipo:'Diesel Pesado',
+rota:'Gaspar → São José dos Pinhais',
+lat:-26.30,
+lng:-48.84
+},
+
+{
+nome:'JK Mecânica Diesel',
+cidade:'Joinville/SC',
+telefone:'(47) 99747-1142',
+tipo:'Socorro BR-101',
+rota:'Gaspar → São José dos Pinhais',
+lat:-26.28,
+lng:-48.88
+},
+
+{
+nome:'AN Mecânica Diesel',
+cidade:'Garuva/SC',
+telefone:'(47) 3445-1010',
+tipo:'Diesel Caminhões',
+rota:'Gaspar → São José dos Pinhais',
+lat:-26.03,
+lng:-48.85
+},
+
+{
+nome:'Ponta Grossa Diesel',
+cidade:'Ponta Grossa/PR',
+telefone:'(42) 99811-4422',
+tipo:'Diesel Caminhões',
+rota:'São José dos Pinhais → Londrina',
+lat:-25.09,
+lng:-50.16
+},
+
+{
+nome:'Tibagi Truck Service',
+cidade:'Tibagi/PR',
+telefone:'(42) 99927-7710',
+tipo:'Socorro Rodoviário',
+rota:'São José dos Pinhais → Londrina',
+lat:-24.51,
+lng:-50.41
+},
+
+{
+nome:'Mecânica Diesel Mauá',
+cidade:'Apucarana/PR',
+telefone:'(43) 3033-4411',
+tipo:'Mecânica Pesada',
+rota:'São José dos Pinhais → Londrina',
+lat:-23.55,
+lng:-51.46
+},
+
+{
+nome:'GM Diesel Mecânica 24h',
+cidade:'Registro/SP',
+telefone:'(13) 99744-8891',
+tipo:'Socorro 24h',
+rota:'São José dos Pinhais → Guarulhos',
+lat:-24.49,
+lng:-47.84
+},
+
+{
+nome:'Marçal Diesel',
+cidade:'Cajati/SP',
+telefone:'(13) 3854-2217',
+tipo:'Diesel Pesado',
+rota:'São José dos Pinhais → Guarulhos',
+lat:-24.73,
+lng:-48.12
+},
+
+{
+nome:'Ortigueira Diesel Center',
+cidade:'Ortigueira/PR',
+telefone:'(42) 99961-5521',
+tipo:'Socorro Rodoviário',
+rota:'Telêmaco Borba → Osasco',
+lat:-24.20,
+lng:-50.92
+},
+
+{
+nome:'Apucarana Truck Diesel',
+cidade:'Apucarana/PR',
+telefone:'(43) 99944-1187',
+tipo:'Diesel Pesado',
+rota:'Telêmaco Borba → Osasco',
+lat:-23.55,
+lng:-51.46
+},
+
+{
+nome:'Ourinhos Diesel',
+cidade:'Ourinhos/SP',
+telefone:'(14) 99871-2201',
+tipo:'Mecânica Caminhões',
+rota:'Telêmaco Borba → Osasco',
+lat:-22.98,
+lng:-49.87
+},
+
+{
+nome:'Avaré Diesel Truck',
+cidade:'Avaré/SP',
+telefone:'(14) 99855-6612',
+tipo:'Socorro Rodoviário',
+rota:'Telêmaco Borba → Osasco',
+lat:-23.10,
+lng:-48.92
+},
+
+{
+nome:'Sorocaba Diesel Truck',
+cidade:'Sorocaba/SP',
+telefone:'(15) 99774-6631',
+tipo:'Socorro 24h',
+rota:'Telêmaco Borba → Osasco',
+lat:-23.50,
+lng:-47.45
+},
+
+{
+nome:'Socorro Diesel Anhanguera',
+cidade:'Limeira/SP',
+telefone:'(19) 99871-6620',
+tipo:'Socorro Rodoviário',
+rota:'Campinas → Belo Horizonte',
+lat:-22.56,
+lng:-47.40
+},
+
+{
+nome:'Fernão Diesel',
+cidade:'Pouso Alegre/MG',
+telefone:'(35) 99911-7740',
+tipo:'Diesel Caminhões',
+rota:'Campinas → Belo Horizonte',
+lat:-22.23,
+lng:-45.93
+},
+
+{
+nome:'Via Dutra Diesel',
+cidade:'Resende/RJ',
+telefone:'(24) 99961-2250',
+tipo:'Socorro Dutra',
+rota:'Campinas → Rio de Janeiro',
+lat:-22.47,
+lng:-44.45
+}
+
+];
+
+oficinas.forEach(o => {
+
+    const marker = L.marker([o.lat,o.lng],{
+        icon:oficinaIcon
+    }).addTo(map);
+
+    marker.bindPopup(`
+        <div class="popup-title">${o.nome}</div>
+        <b>Cidade:</b> ${o.cidade}<br>
+        <b>Telefone:</b> ${o.telefone}<br>
+        <b>Atendimento:</b> ${o.tipo}
+    `);
+
+    marker.bindTooltip(`
+        <b>${o.nome}</b><br>
+        📍 ${o.cidade}<br>
+        📞 ${o.telefone}
+    `,{
+        permanent:false,
+        direction:'top',
+        opacity:0.95
+    });
+
+});
+
+// ================== LEGENDA ==================
+
+const legenda = L.control({position:'bottomright'});
+
+legenda.onAdd = function(){
+
+    const div = L.DomUtil.create('div','legend');
+
+    div.innerHTML = `
+        <h4>Legenda</h4>
+        🔵 Filiais BBM / Translovato<br>
+        🔴 Oficinas Diesel / Socorro<br>
+        ━ Rotas Operacionais
+    `;
+
+    return div;
+};
+
+legenda.addTo(map);
+
+</script>
+
+</body>
+</html>
