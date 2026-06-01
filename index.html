@@ -498,6 +498,163 @@ lng:-44.04
 
 ];
 
+const hubsGuincho = [
+
+{
+nome:'HUB CAMAQUÃ',
+cidade:'Camaquã/RS',
+telefone:'Central Regional',
+cobertura:'Capão do Leão → Cachoeirinha',
+lat:-30.85,
+lng:-51.81
+},
+
+{
+nome:'HUB PORTO ALEGRE',
+cidade:'Porto Alegre/RS',
+telefone:'Central Regional',
+cobertura:'Região Metropolitana',
+lat:-30.03,
+lng:-51.23
+},
+
+{
+nome:'HUB VACARIA',
+cidade:'Vacaria/RS',
+telefone:'Central Regional',
+cobertura:'Caxias do Sul → Lages',
+lat:-28.51,
+lng:-50.94
+},
+
+{
+nome:'HUB LAGES',
+cidade:'Lages/SC',
+telefone:'Central Regional',
+cobertura:'Serra Catarinense',
+lat:-27.81,
+lng:-50.32
+},
+
+{
+nome:'HUB JOINVILLE',
+cidade:'Joinville/SC',
+telefone:'Central Regional',
+cobertura:'Joinville → Garuva',
+lat:-26.30,
+lng:-48.84
+},
+
+{
+nome:'HUB PONTA GROSSA',
+cidade:'Ponta Grossa/PR',
+telefone:'Central Regional',
+cobertura:'Campos Gerais',
+lat:-25.09,
+lng:-50.16
+},
+
+{
+nome:'HUB TIBAGI',
+cidade:'Tibagi/PR',
+telefone:'Central Regional',
+cobertura:'Tibagi / Ortigueira',
+lat:-24.51,
+lng:-50.41
+},
+
+{
+nome:'HUB LONDRINA',
+cidade:'Londrina/PR',
+telefone:'Central Regional',
+cobertura:'Norte do Paraná',
+lat:-23.31,
+lng:-51.16
+},
+
+{
+nome:'HUB REGISTRO',
+cidade:'Registro/SP',
+telefone:'Central Regional',
+cobertura:'Serra do Cafezal',
+lat:-24.49,
+lng:-47.84
+},
+
+{
+nome:'HUB SOROCABA',
+cidade:'Sorocaba/SP',
+telefone:'Central Regional',
+cobertura:'Castelo Branco',
+lat:-23.50,
+lng:-47.45
+},
+
+{
+nome:'HUB GUARULHOS',
+cidade:'Guarulhos/SP',
+telefone:'Central Regional',
+cobertura:'Grande São Paulo',
+lat:-23.45,
+lng:-46.53
+},
+
+{
+nome:'HUB CAMPINAS',
+cidade:'Campinas/SP',
+telefone:'Central Regional',
+cobertura:'Anhanguera / Bandeirantes',
+lat:-22.90,
+lng:-47.06
+},
+
+{
+nome:'HUB POUSO ALEGRE',
+cidade:'Pouso Alegre/MG',
+telefone:'Central Regional',
+cobertura:'Fernão Dias',
+lat:-22.23,
+lng:-45.93
+},
+
+{
+nome:'HUB CONTAGEM',
+cidade:'Contagem/MG',
+telefone:'Central Regional',
+cobertura:'Belo Horizonte',
+lat:-19.97,
+lng:-44.04
+},
+
+{
+nome:'HUB RESENDE',
+cidade:'Resende/RJ',
+telefone:'Central Regional',
+cobertura:'Via Dutra',
+lat:-22.47,
+lng:-44.45
+},
+
+{
+nome:'HUB RIO DE JANEIRO',
+cidade:'Rio de Janeiro/RJ',
+telefone:'Central Regional',
+cobertura:'Capital e Baixada',
+lat:-22.90,
+lng:-43.20
+}
+
+];
+    L.circle(
+    [h.lat,h.lng],
+    {
+        radius:80000,
+        color:'orange',
+        fillColor:'orange',
+        fillOpacity:0.05,
+        weight:1
+    }
+).addTo(map);
 
 oficinas.forEach(o => {
 
@@ -549,7 +706,27 @@ homologadas.forEach(o => {
     });
 
 });
+hubsGuincho.forEach(h => {
 
+    L.marker([h.lat,h.lng],{
+        icon:guinchoIcon
+    })
+    .addTo(map)
+    .bindPopup(`
+        <div class="popup-title">🚨 ${h.nome}</div>
+        <b>Cidade:</b> ${h.cidade}<br>
+        <b>Cobertura:</b> ${h.cobertura}<br>
+        <b>Atendimento:</b> Guincho 24 horas
+    `)
+    .bindTooltip(`
+        <b>🚨 ${h.nome}</b><br>
+        📍 ${h.cidade}
+    `,{
+        direction:'top',
+        opacity:0.95
+    });
+
+});
 // ================== LEGENDA ==================
 
 const legenda = L.control({position:'bottomright'});
