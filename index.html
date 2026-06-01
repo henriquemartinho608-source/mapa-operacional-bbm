@@ -132,20 +132,20 @@ rotas.forEach(rota => {
 
 const filiais = [
 
-['BBM Capão do Leão','Capão do Leão/RS',-31.77,-52.49],
-['Translovato Cachoeirinha','Cachoeirinha/RS',-29.95,-51.09],
-['Translovato Caxias do Sul','Caxias do Sul/RS',-29.16,-51.18],
-['Translovato Gaspar','Gaspar/SC',-26.93,-48.95],
-['Translovato São José dos Pinhais','São José dos Pinhais/PR',-25.53,-49.20],
-['Translovato Londrina','Londrina/PR',-23.31,-51.16],
-['Translovato Guarulhos','Guarulhos/SP',-23.45,-46.53],
-['Gwest Osasco','Osasco/SP',-23.53,-46.79],
-['Translovato Campinas','Campinas/SP',-22.90,-47.06],
-['Translovato Belo Horizonte','Belo Horizonte/MG',-19.92,-43.94],
-['Translovato Rio de Janeiro','Rio de Janeiro/RJ',-22.90,-43.20],
-['BBM Cabo de Santo Agostinho','Cabo de Santo Agostinho/PE',-8.28,-35.03],
-['BBM Goiana','Goiana/PE',-7.56,-35.00],
-['BBM Telêmaco Borba','Telêmaco Borba/PR',-24.32,-50.61]
+['BBM Capão do Leão','Capão do Leão/RS',-31.77,-52.49,false],
+['Translovato Cachoeirinha','Cachoeirinha/RS',-29.95,-51.09,false],
+['Translovato Caxias do Sul','Caxias do Sul/RS',-29.16,-51.18,true],
+['Translovato Gaspar','Gaspar/SC',-26.93,-48.95,false],
+['Translovato São José dos Pinhais','São José dos Pinhais/PR',-25.53,-49.20,true],
+['Translovato Londrina','Londrina/PR',-23.31,-51.16,false],
+['Translovato Guarulhos','Guarulhos/SP',-23.45,-46.53,true],
+['Gwest Osasco','Osasco/SP',-23.53,-46.79,false],
+['Translovato Campinas','Campinas/SP',-22.90,-47.06,false],
+['Translovato Belo Horizonte','Belo Horizonte/MG',-19.92,-43.94,false],
+['Translovato Rio de Janeiro','Rio de Janeiro/RJ',-22.90,-43.20,false],
+['BBM Cabo de Santo Agostinho','Cabo de Santo Agostinho/PE',-8.28,-35.03,false],
+['BBM Goiana','Goiana/PE',-7.56,-35.00,false],
+['BBM Telêmaco Borba','Telêmaco Borba/PR',-24.32,-50.61,false]
 
 ];
 
@@ -158,13 +158,15 @@ filiais.forEach(f => {
     marker.bindPopup(`
         <div class="popup-title">${f[0]}</div>
         <b>Cidade:</b> ${f[1]}<br>
-        <b>Tipo:</b> Filial Operacional
+        <b>Tipo:</b> Filial Operacional<br>
+        ${f[4] ? '<b>🔧 Oficina Interna Própria</b>' : ''}
     `);
 
     marker.bindTooltip(`
         <b>${f[0]}</b><br>
         📍 ${f[1]}<br>
-        🏢 Filial Operacional
+        🏢 Filial Operacional<br>
+        ${f[4] ? '🔧 Oficina Interna' : ''}
     `,{
         permanent:false,
         direction:'top',
@@ -736,11 +738,15 @@ legenda.onAdd = function(){
 
     div.innerHTML = `
     <h4>Legenda</h4>
+
     🔵 Filiais BBM / Translovato<br>
+    🔧 Filial com Oficina Interna<br>
     🔴 Oficinas Diesel / Socorro<br>
     🟢 Oficinas Homologadas Nimbi<br>
+    🚨 Hub Guincho 24h<br>
     ━ Rotas Operacionais
-`;
+
+    `;
 
     return div;
 };
