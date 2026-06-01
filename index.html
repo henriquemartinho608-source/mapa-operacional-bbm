@@ -75,11 +75,11 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
 
 //////////////////// CAMADAS ////////////////////
 
-const layerFiliais = L.layerGroup().addTo(map);
-const layerOficinas = L.layerGroup().addTo(map);
-const layerHomologadas = L.layerGroup().addTo(map);
-const layerGuinchos = L.layerGroup().addTo(map);
-const layerRotas = L.layerGroup().addTo(map);
+const layerFiliais = L.layerGroup();
+const layerOficinas = L.layerGroup();
+const layerHomologadas = L.layerGroup();
+const layerGuinchos = L.layerGroup();
+const layerRotas = L.layerGroup();
 
 L.control.layers(null, {
     "🔵 Filiais": layerFiliais,
