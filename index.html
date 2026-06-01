@@ -47,6 +47,11 @@ body{
     font-weight:bold;
 }
 
+    .guincho-icon{
+    background:none !important;
+    border:none !important;
+}
+
 </style>
 </head>
 
@@ -96,16 +101,15 @@ const filialIcon = new L.Icon({
 const guinchoIcon = L.divIcon({
     html: `
         <div style="
-            font-size:32px;
+            font-size:34px;
             text-align:center;
-            line-height:32px;
         ">
-            🚨
+            🚛
         </div>
     `,
-    className:'',
-    iconSize:[40,40],
-    iconAnchor:[20,20]
+    className: 'guincho-icon',
+    iconSize: [34,34],
+    iconAnchor: [17,17]
 });
 // ================== ROTAS ==================
 
@@ -755,8 +759,16 @@ legenda.onAdd = function(){
     🔧 Filial com Oficina Interna<br>
     🔴 Oficinas Diesel / Socorro<br>
     🟢 Oficinas Homologadas Nimbi<br>
-    🚨 Hub Guincho 24h<br>
-    ━ Rotas Operacionais
+    🚚 Guinchos Pesados 24h<br>
+    <span style="
+display:inline-block;
+width:35px;
+height:4px;
+background:blue;
+vertical-align:middle;
+margin-right:8px;
+border-radius:2px;
+"></span> Rotas Operacionais
 
     `;
 
