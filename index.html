@@ -166,7 +166,7 @@ filiais.forEach(f => {
 
     const marker = L.marker([f[2],f[3]],{
         icon:filialIcon
-    }).addTo(map);
+    }).addTo(layerFiliais);
 
     marker.bindPopup(`
         <div class="popup-title">${f[0]}</div>
@@ -671,7 +671,7 @@ oficinas.forEach(o => {
 
     const marker = L.marker([o.lat,o.lng],{
         icon:oficinaIcon
-    }).addTo(map);
+    }).addTo(layerOficinas);
 
     marker.bindPopup(`
         <div class="popup-title">${o.nome}</div>
@@ -696,7 +696,7 @@ homologadas.forEach(o => {
 
     const marker = L.marker([o.lat,o.lng],{
         icon:homologadaIcon
-    }).addTo(map);
+    }).addTo(layerHomologadas);
 
     marker.bindPopup(`
         <div class="popup-title">${o.nome}</div>
@@ -722,7 +722,7 @@ hubsGuincho.forEach(h => {
 
     const marker = L.marker([h.lat,h.lng],{
         icon:guinchoIcon
-    }).addTo(map);
+    }).addTo(layerGuinchos);
 
     marker.bindPopup(`
         <div class="popup-title">🚨 ${h.nome}</div>
