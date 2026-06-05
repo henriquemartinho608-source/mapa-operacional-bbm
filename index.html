@@ -80,10 +80,13 @@ const layerOficinas = L.layerGroup();
 const layerHomologadas = L.layerGroup();
 const layerGuinchos = L.layerGroup();
 const layerRotas = L.layerGroup();
-const layerRedeNacional = L.layerGroup();    
+const layerRedeNacional = L.layerGroup(); 
+    
+const layerLocalizacao = L.layerGroup();    
 
 
 L.control.layers(null, {
+    "📍 Minha Localização": layerLocalizacao,
     "🔵 Filiais": layerFiliais,
     "🔴 Oficinas": layerOficinas,
     "🟢 Homologadas": layerHomologadas,
@@ -121,6 +124,20 @@ const guinchoIcon = L.divIcon({
     iconSize:[34,34],
     iconAnchor:[17,17]
 });
+
+const minhaPosicaoIcon = L.divIcon({
+    html: `
+        <div style="
+            font-size:32px;
+            text-align:center;
+        ">
+        🚛
+        </div>
+    `,
+    className:'',
+    iconSize:[32,32],
+    iconAnchor:[16,16]
+});    
 
 //////////////////// ROTAS (agora na layer correta) ////////////////////
 
@@ -893,7 +910,58 @@ border-radius:2px;
 
     return div;
 };
+    
+/////////////////////////////////////////////////////
+// GEOLOCALIZAÇÃO
+/////////////////////////////////////////////////////
 
+let marcadorUsuario;
+
+if (navigator.geolocation) {
+
+    navigator.geolocation.watchPosition(
+
+        function(posicao){
+
+            const lat = posicao.coords.latitude;
+            const lng = posicao.coords.longitude;
+
+            layerLocalizacao.clearLayers();
+
+            marcadorUsuario = L.marker(
+                [lat,lng],
+                {icon:minhaPosicaoIcon}
+            ).addTo(layerLocalizacao);
+
+            marcadorUsuario.bindPopup(`
+                <div class="popup-title">
+                🚛 Sua Localização
+                </div>
+
+                Latitude: ${lat.toFixed(5)}<br>
+                Longitude: ${lng.toFixed(5)}
+            `);
+
+        },
+
+        function(erro){
+
+            console.log(
+                "Geolocalização não permitida."
+            );
+
+        },
+
+        {
+            enableHighAccuracy:true,
+            maximumAge:10000,
+            timeout:5000
+        }
+
+    );
+
+}
+    
 legenda.addTo(map);
 
 </script>
