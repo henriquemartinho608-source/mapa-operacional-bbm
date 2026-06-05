@@ -821,15 +821,27 @@ oficinas.forEach(o => {
     <b>Atendimento:</b> ${o.tipo}<br><br>
 
     <button
-        onclick="tracarRota(${o.lat},${o.lng})"
-        style="
-            width:100%;
-            padding:8px;
-            cursor:pointer;
-        "
-    >
-        🧭 Traçar Rota
-    </button>
+    onclick="abrirGoogleMaps(${o.lat},${o.lng})"
+    style="
+        width:100%;
+        padding:8px;
+        cursor:pointer;
+        margin-bottom:5px;
+    "
+>
+    🗺️ Google Maps
+</button>
+
+<button
+    onclick="abrirWaze(${o.lat},${o.lng})"
+    style="
+        width:100%;
+        padding:8px;
+        cursor:pointer;
+    "
+>
+    🚗 Waze
+</button>
 `);
 
     marker.bindTooltip(`
@@ -933,6 +945,28 @@ function tracarRota(destinoLat,destinoLng){
     }).addTo(map);
 
 }
+
+/////////////////////////////////////////////////////
+// NAVEGAÇÃO EXTERNA
+/////////////////////////////////////////////////////
+
+function abrirGoogleMaps(lat,lng){
+
+    const url =
+    `https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}`;
+
+    window.open(url,'_blank');
+
+}
+
+function abrirWaze(lat,lng){
+
+    const url =
+    `https://waze.com/ul?ll=${lat},${lng}&navigate=yes`;
+
+    window.open(url,'_blank');
+
+}    
 
 // ================== LEGENDA ==================
 
