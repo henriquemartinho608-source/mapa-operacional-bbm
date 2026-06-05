@@ -309,11 +309,49 @@ filiais.forEach(f => {
     }).addTo(layerFiliais);
 
     marker.bindPopup(`
-        <div class="popup-title">${f[0]}</div>
-        <b>Cidade:</b> ${f[1]}<br>
-        <b>Tipo:</b> Filial Operacional<br>
-        ${f[4] ? '<b>🔧 Oficina Interna Própria</b>' : ''}
-    `);
+    <div class="popup-title">${f[0]}</div>
+
+    <b>Cidade:</b> ${f[1]}<br>
+    <b>Tipo:</b> Filial Operacional<br>
+    ${f[4] ? '<b>🔧 Oficina Interna Própria</b><br>' : ''}
+
+    <br>
+
+    <button
+        onclick="tracarRota(${f[2]},${f[3]})"
+        style="
+            width:100%;
+            padding:8px;
+            margin-bottom:5px;
+            cursor:pointer;
+        "
+    >
+        🧭 Rota no Mapa
+    </button>
+
+    <button
+        onclick="abrirGoogleMaps(${f[2]},${f[3]})"
+        style="
+            width:100%;
+            padding:8px;
+            margin-bottom:5px;
+            cursor:pointer;
+        "
+    >
+        🗺️ Google Maps
+    </button>
+
+    <button
+        onclick="abrirWaze(${f[2]},${f[3]})"
+        style="
+            width:100%;
+            padding:8px;
+            cursor:pointer;
+        "
+    >
+        🚗 Waze
+    </button>
+`);
 
     marker.bindTooltip(`
         <b>${f[0]}</b><br>
@@ -875,11 +913,49 @@ homologadas.forEach(o => {
     }).addTo(layerHomologadas);
 
     marker.bindPopup(`
-        <div class="popup-title">${o.nome}</div>
-        <b>Cidade:</b> ${o.cidade}<br>
-        <b>Telefone:</b> ${o.telefone}<br>
-        <b>Status:</b> Oficina Homologada Nimbi
-    `);
+    <div class="popup-title">${o.nome}</div>
+
+    <b>Cidade:</b> ${o.cidade}<br>
+    <b>Telefone:</b> ${o.telefone}<br>
+    <b>Status:</b> Oficina Homologada Nimbi<br>
+
+    <br>
+
+    <button
+        onclick="tracarRota(${o.lat},${o.lng})"
+        style="
+            width:100%;
+            padding:8px;
+            margin-bottom:5px;
+            cursor:pointer;
+        "
+    >
+        🧭 Rota no Mapa
+    </button>
+
+    <button
+        onclick="abrirGoogleMaps(${o.lat},${o.lng})"
+        style="
+            width:100%;
+            padding:8px;
+            margin-bottom:5px;
+            cursor:pointer;
+        "
+    >
+        🗺️ Google Maps
+    </button>
+
+    <button
+        onclick="abrirWaze(${o.lat},${o.lng})"
+        style="
+            width:100%;
+            padding:8px;
+            cursor:pointer;
+        "
+    >
+        🚗 Waze
+    </button>
+`);
 
     marker.bindTooltip(`
         <b>${o.nome}</b><br>
@@ -901,13 +977,50 @@ hubsGuincho.forEach(h => {
     }).addTo(layerGuinchos);
 
     marker.bindPopup(`
-        <div class="popup-title">🚨 ${h.nome}</div>
+    <div class="popup-title">🚨 ${h.nome}</div>
 
-        <b>Cidade:</b> ${h.cidade}<br>
-        <b>Telefone:</b> ${h.telefone}<br>
-        <b>Cobertura:</b> ${h.cobertura}<br>
-        <b>Atendimento:</b> Guincho 24 Horas
-    `);
+    <b>Cidade:</b> ${h.cidade}<br>
+    <b>Telefone:</b> ${h.telefone}<br>
+    <b>Cobertura:</b> ${h.cobertura}<br>
+    <b>Atendimento:</b> Guincho 24 Horas<br>
+
+    <br>
+
+    <button
+        onclick="tracarRota(${h.lat},${h.lng})"
+        style="
+            width:100%;
+            padding:8px;
+            margin-bottom:5px;
+            cursor:pointer;
+        "
+    >
+        🧭 Rota no Mapa
+    </button>
+
+    <button
+        onclick="abrirGoogleMaps(${h.lat},${h.lng})"
+        style="
+            width:100%;
+            padding:8px;
+            margin-bottom:5px;
+            cursor:pointer;
+        "
+    >
+        🗺️ Google Maps
+    </button>
+
+    <button
+        onclick="abrirWaze(${h.lat},${h.lng})"
+        style="
+            width:100%;
+            padding:8px;
+            cursor:pointer;
+        "
+    >
+        🚗 Waze
+    </button>
+`);
 
     marker.bindTooltip(`
         <b>🚨 ${h.nome}</b><br>
