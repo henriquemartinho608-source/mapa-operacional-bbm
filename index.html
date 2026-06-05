@@ -942,27 +942,27 @@ function tracarRota(destinoLat,destinoLng){
 
     rotaAtual = L.Routing.control({
 
-    waypoints:[
+        waypoints:[
 
-        L.latLng(minhaLatitude,minhaLongitude),
-        L.latLng(destinoLat,destinoLng)
+            L.latLng(minhaLatitude,minhaLongitude),
+            L.latLng(destinoLat,destinoLng)
 
-    ],
+        ],
 
-    routeWhileDragging:false,
-    addWaypoints:false,
-    draggableWaypoints:false,
-    fitSelectedRoutes:true,
+        routeWhileDragging:false,
+        addWaypoints:false,
+        draggableWaypoints:false,
+        fitSelectedRoutes:true,
 
-    show:false,
+        show:false,
 
-    createMarker: function() {
-        return null;
-    }
+        createMarker: function() {
+            return null;
+        }
 
-}).addTo(map);
+    }).addTo(map);
 
-}    
+}   
 
 /////////////////////////////////////////////////////
 // NAVEGAÇÃO EXTERNA
