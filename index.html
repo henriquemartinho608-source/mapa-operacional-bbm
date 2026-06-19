@@ -317,6 +317,7 @@ const rotas = [
 
 ];
 
+/*
 rotas.forEach(r=>{
 
     L.polyline(r,{
@@ -328,6 +329,50 @@ rotas.forEach(r=>{
     }).addTo(layerRotas);
 
 });
+*/
+
+async function desenharRotaReal(pontos){
+
+    try{
+
+        const coords = pontos
+            .map(p => `${p[1]},${p[0]}`)
+            .join(';');
+
+        const url =
+        `https://router.project-osrm.org/route/v1/driving/${coords}?overview=full&geometries=geojson`;
+
+        const resposta = await fetch(url);
+
+        const dados = await resposta.json();
+
+        if(!dados.routes || !dados.routes.length){
+            return;
+        }
+
+        const geo = dados.routes[0].geometry;
+
+        L.geoJSON(geo,{
+            style:{
+                color:'#ff6b00',
+                weight:6,
+                opacity:0.9
+            }
+        }).addTo(layerRotas);
+
+    }catch(erro){
+
+        console.error('Erro rota:',erro);
+
+    }
+
+}
+
+rotas.forEach(r=>{
+
+    desenharRotaReal(r);
+
+});    
 
 //////////////////////////////////////////////////////
 // REDE NACIONAL BBM / TRANSLOVATO
