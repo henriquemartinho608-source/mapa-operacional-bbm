@@ -400,6 +400,8 @@ rotaLayer.eachLayer(function(layer){
 
     layer.on('click', function(e){
 
+        console.log('CLIQUEI NA ROTA');
+
         L.DomEvent.stopPropagation(e);
 
         if(rotaAtual){
