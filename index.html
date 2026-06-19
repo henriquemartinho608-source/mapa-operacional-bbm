@@ -88,6 +88,8 @@ let minhaLongitude = null;
 
 map.on('click', function(){
 
+    // Limpa corredor selecionado
+
     if(rotaSelecionada){
 
         rotaSelecionada.setStyle({
@@ -97,6 +99,16 @@ map.on('click', function(){
         });
 
         rotaSelecionada = null;
+
+    }
+
+    // Limpa rota de navegação
+
+    if(rotaNavegacao){
+
+        map.removeControl(rotaNavegacao);
+
+        rotaNavegacao = null;
 
     }
 
