@@ -393,36 +393,37 @@ async function desenharRotaReal(pontos){
         color:'#ff6b00',
         weight:6,
         opacity:0.9
-    }
-});
+    },
 
-rotaLayer.eachLayer(function(layer){
+    onEachFeature: function(feature, layer){
 
-    layer.on('click', function(e){
+        layer.on('click', function(e){
 
-        console.log('CLIQUEI NA ROTA');
+            console.log('CLIQUEI NA ROTA');
 
-        L.DomEvent.stopPropagation(e);
+            L.DomEvent.stopPropagation(e);
 
-        if(rotaAtual){
+            if(rotaAtual){
 
-            rotaAtual.setStyle({
-                color:'#ff6b00',
-                weight:6,
-                opacity:0.9
+                rotaAtual.setStyle({
+                    color:'#ff6b00',
+                    weight:6,
+                    opacity:0.9
+                });
+
+            }
+
+            layer.setStyle({
+                color:'#00ffff',
+                weight:10,
+                opacity:1
             });
 
-        }
+            rotaAtual = layer;
 
-        this.setStyle({
-            color:'#00ffff',
-            weight:10,
-            opacity:1
         });
 
-        rotaAtual = this;
-
-    });
+    }
 
 });
 
