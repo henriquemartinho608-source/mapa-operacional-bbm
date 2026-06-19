@@ -80,21 +80,23 @@ map.fitBounds([
     [-6,-39]
 ]);
 
-let rotaAtual = null;
+let rotaSelecionada = null;
+let rotaNavegacao = null;
+
 let minhaLatitude = null;
 let minhaLongitude = null;  
 
 map.on('click', function(){
 
-    if(rotaAtual){
+    if(rotaSelecionada){
 
-        rotaAtual.setStyle({
+        rotaSelecionada.setStyle({
             color:'#ff6b00',
             weight:6,
             opacity:0.9
         });
 
-        rotaAtual = null;
+        rotaSelecionada = null;
 
     }
 
@@ -403,9 +405,9 @@ async function desenharRotaReal(pontos){
 
             L.DomEvent.stopPropagation(e);
 
-            if(rotaAtual){
+            if(rotaSelecionada){
 
-                rotaAtual.setStyle({
+                rotaSelecionada.setStyle({
                     color:'#ff6b00',
                     weight:6,
                     opacity:0.9
@@ -419,7 +421,7 @@ async function desenharRotaReal(pontos){
                 opacity:1
             });
 
-            rotaAtual = layer;
+            rotaSelecionada = layer;
 
         });
 
@@ -1332,13 +1334,13 @@ function tracarRota(destinoLat,destinoLng){
 
     }
 
-    if(rotaAtual){
+    if(rotaNavegacao){
 
-        map.removeControl(rotaAtual);
+    map.removeControl(rotaNavegacao);
 
-    }
+}
 
-    rotaAtual = L.Routing.control({
+rotaNavegacao = L.Routing.control({
 
         waypoints:[
 
