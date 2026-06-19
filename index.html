@@ -83,22 +83,7 @@ map.fitBounds([
 let rotaAtual = null;
 let minhaLatitude = null;
 let minhaLongitude = null;  
-
-map.on('click', function(){
-
-    if(rotaAtual){
-
-        rotaAtual.setStyle({
-            color:'#ff6b00',
-            weight:6,
-            opacity:0.9
-        });
-
-        rotaAtual = null;
-
-    }
-
-});    
+    
 
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
     attribution:'© OpenStreetMap'
