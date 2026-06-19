@@ -80,39 +80,8 @@ map.fitBounds([
     [-6,-39]
 ]);
 
-let rotaSelecionada = null;
-let rotaNavegacao = null;
-
 let minhaLatitude = null;
 let minhaLongitude = null;  
-
-map.on('click', function(){
-
-    // Limpa corredor selecionado
-
-    if(rotaSelecionada){
-
-        rotaSelecionada.setStyle({
-            color:'#ff6b00',
-            weight:6,
-            opacity:0.9
-        });
-
-        rotaSelecionada = null;
-
-    }
-
-    // Limpa rota de navegação
-
-    if(rotaNavegacao){
-
-        map.removeControl(rotaNavegacao);
-
-        rotaNavegacao = null;
-
-    }
-
-});    
 
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
     attribution:'© OpenStreetMap'
