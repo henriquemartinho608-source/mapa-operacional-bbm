@@ -411,10 +411,7 @@ async function desenharRotaReal(pontos){
 
     onEachFeature: function(feature, layer){
 
-        layer.on('click', function(e){
-
-            console.log('CLIQUEI NA ROTA');
-
+       
             L.DomEvent.stopPropagation(e);
 
             if(rotaSelecionada){
