@@ -402,41 +402,13 @@ async function desenharRotaReal(pontos){
 
         const geo = dados.routes[0].geometry;
 
-        const rotaLayer = L.geoJSON(geo,{
-    style:{
-        color:'#ff6b00',
-        weight:6,
-        opacity:0.9
-    },
-
-    onEachFeature: function(feature, layer){
-
-       
-            L.DomEvent.stopPropagation(e);
-
-            if(rotaSelecionada){
-
-                rotaSelecionada.setStyle({
-                    color:'#ff6b00',
-                    weight:6,
-                    opacity:0.9
-                });
-
-            }
-
-            layer.setStyle({
-                color:'#00ffff',
-                weight:10,
-                opacity:1
-            });
-
-            rotaSelecionada = layer;
-
-        });
-
+        const rotaLayer = L.geoJSON(geo, {
+    style: {
+        color: '#ff6b00',
+        weight: 6,
+        opacity: 0.9
     }
-
-});
+}).addTo(map);
 
 rotaLayer.addTo(layerRotas);
         
