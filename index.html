@@ -76,7 +76,8 @@ body{
 const map = L.map('map').setView([-23.5, -46.6], 6);
 
 let minhaLatitude = null;
-let minhaLongitude = null;  
+let minhaLongitude = null; 
+let rotaNavegacao = null;    
 
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
     attribution:'© OpenStreetMap'
@@ -1290,10 +1291,8 @@ function tracarRota(destinoLat,destinoLng){
 
     }
 
-    if(rotaNavegacao){
-
+    if (rotaNavegacao && map.hasLayer(rotaNavegacao)) {
     map.removeControl(rotaNavegacao);
-
 }
 
 rotaNavegacao = L.Routing.control({
