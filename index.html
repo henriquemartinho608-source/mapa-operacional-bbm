@@ -76,8 +76,8 @@ body{
 const map = L.map('map');
 
 map.fitBounds([
-    [-33,-56],
-    [-6,-39]
+    [-33, -56],
+    [-6, -39]
 ]);
 
 let minhaLatitude = null;
@@ -390,16 +390,13 @@ rotaLayer.addTo(layerRotas);
 
 }
 
-async function desenharTodasRotas(){
-
-    for(const rota of rotas){
-
+async function desenharTodasRotas() {
+    for (const rota of rotas) {
         await desenharRotaReal(rota);
-
     }
-
 }
 
+// chamar depois que mapa estiver pronto
 desenharTodasRotas();    
 
 //////////////////////////////////////////////////////
