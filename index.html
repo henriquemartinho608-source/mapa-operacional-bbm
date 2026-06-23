@@ -110,6 +110,10 @@ L.control.layers(null, {
     "🌐 Rede Nacional": layerRedeNacional
 }, {collapsed:false}).addTo(map);
 
+    layerRotas.on('add', function () {
+    carregarRotasSeNecessario();
+});    
+
 //////////////////// ÍCONES ////////////////////
 
 const oficinaIcon = new L.Icon({
@@ -378,7 +382,7 @@ async function desenharRotaReal(pontos){
         weight: 6,
         opacity: 0.9
     }
-}).addTo(map);
+});
 
 rotaLayer.addTo(layerRotas);
         
@@ -397,8 +401,6 @@ async function desenharTodasRotas() {
     }
 }
 
-// chamar depois que mapa estiver pronto
-let rotasCarregadas = false;
 
 function iniciarRotas() {
     if (rotasCarregadas) return;
