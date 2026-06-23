@@ -397,7 +397,17 @@ async function desenharTodasRotas() {
 }
 
 // chamar depois que mapa estiver pronto
-desenharTodasRotas();    
+let rotasCarregadas = false;
+
+function iniciarRotas() {
+    if (rotasCarregadas) return;
+
+    rotasCarregadas = true;
+    desenharTodasRotas();
+}    
+map.whenReady(() => {
+    // NÃO chama rotas automaticamente aqui
+});    
 
 //////////////////////////////////////////////////////
 // REDE NACIONAL BBM / TRANSLOVATO
@@ -1330,6 +1340,14 @@ function abrirWaze(lat,lng){
 
     window.open(url,'_blank');
 
+}    
+
+function toggleRotas() {
+    if (map.hasLayer(layerRotas)) {
+        map.removeLayer(layerRotas);
+    } else {
+        map.addLayer(layerRotas);
+    }
 }    
 
 /////////////////////////////////////////////////////
