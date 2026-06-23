@@ -83,6 +83,15 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
     attribution:'© OpenStreetMap'
 }).addTo(map);
 
+map.on('click', function () {
+
+    if (rotaNavegacao !== null) {
+        map.removeControl(rotaNavegacao);
+        rotaNavegacao = null;
+    }
+
+});
+    
 //////////////////// CAMADAS ////////////////////
 
 const layerFiliais = L.layerGroup();
@@ -1289,7 +1298,7 @@ function tracarRota(destinoLat, destinoLng) {
         return;
     }
 
-    // 🔴 REMOVE rota anterior corretamente
+    // limpa rota anterior
     if (rotaNavegacao !== null) {
         map.removeControl(rotaNavegacao);
         rotaNavegacao = null;
@@ -1305,9 +1314,7 @@ function tracarRota(destinoLat, destinoLng) {
         draggableWaypoints: false,
         fitSelectedRoutes: true,
         show: false,
-        createMarker: function () {
-            return null;
-        }
+        createMarker: () => null
     }).addTo(map);
 }   
 
