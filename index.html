@@ -1282,41 +1282,33 @@ hubsGuincho.forEach(h => {
 // TRAÇAR ROTA
 /////////////////////////////////////////////////////
 
-function tracarRota(destinoLat,destinoLng){
+function tracarRota(destinoLat, destinoLng) {
 
-    if(minhaLatitude === null || minhaLongitude === null){
-
+    if (minhaLatitude === null || minhaLongitude === null) {
         alert("Aguardando localização...");
         return;
-
     }
 
-    if (rotaNavegacao && map.hasLayer(rotaNavegacao)) {
-    map.removeControl(rotaNavegacao);
-}
+    // 🔴 REMOVE rota anterior corretamente
+    if (rotaNavegacao !== null) {
+        map.removeControl(rotaNavegacao);
+        rotaNavegacao = null;
+    }
 
-rotaNavegacao = L.Routing.control({
-
-        waypoints:[
-
-            L.latLng(minhaLatitude,minhaLongitude),
-            L.latLng(destinoLat,destinoLng)
-
+    rotaNavegacao = L.Routing.control({
+        waypoints: [
+            L.latLng(minhaLatitude, minhaLongitude),
+            L.latLng(destinoLat, destinoLng)
         ],
-
-        routeWhileDragging:false,
-        addWaypoints:false,
-        draggableWaypoints:false,
-        fitSelectedRoutes:true,
-
-        show:false,
-
-        createMarker: function() {
+        routeWhileDragging: false,
+        addWaypoints: false,
+        draggableWaypoints: false,
+        fitSelectedRoutes: true,
+        show: false,
+        createMarker: function () {
             return null;
         }
-
     }).addTo(map);
-
 }   
 
 /////////////////////////////////////////////////////
