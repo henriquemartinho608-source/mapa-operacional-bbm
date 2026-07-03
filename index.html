@@ -112,11 +112,10 @@ let rotasCarregadas = false;
 
 //////////////////// BASE / OVERLAYS ////////////////////
 
-const overlays = {
-
-   const baseMaps = {};
+const baseMaps = {};
 
 const overlays = {
+
     "📍 Minha Localização": layerLocalizacao,
     "🚛 Rotas Operacionais": layerRotas,
     "🔵 Filiais": layerFiliais,
@@ -130,10 +129,12 @@ const overlays = {
     "♻️ Recapadoras": layerRecapadoras,
     "⚡ Auto Elétrica": layerAutoEletrica,
     "🌡️ Radiadores": layerRadiadores
+
 };
 
 L.control.layers(baseMaps, overlays, {
-    collapsed: false
+    collapsed: false,
+    autoZIndex: false
 }).addTo(map);
 
 const camadas = [
