@@ -95,7 +95,6 @@ map.on('click', function () {
 //////////////////// CAMADAS ////////////////////
 
 const layerLocalizacao = L.layerGroup();
-
 const layerFiliais = L.layerGroup();
 const layerRotas = L.layerGroup();
 const layerRedeNacional = L.layerGroup();
@@ -110,63 +109,70 @@ const layerAutoEletrica = L.layerGroup();
 const layerRadiadores = L.layerGroup();
 
 let rotasCarregadas = false;
- 
+
+//////////////////// BASE / OVERLAYS ////////////////////
 
 const baseMaps = {};
+
 const overlays = {
 
     "📍 Minha Localização": layerLocalizacao,
-
     "🚛 Rotas Operacionais": layerRotas,
-
     "🔵 Filiais": layerFiliais,
-
     "🌐 Rede Nacional": layerRedeNacional,
 
     "🔧 Oficinas Mecânicas": layerOficinas,
-
     "🛞 Borracharias": layerBorracharias,
-
     "🚚 Guinchos": layerGuinchos,
-
     "🛠️ Posto de Molas": layerPostoMolas,
-
     "⚙️ Tacógrafos": layerTacografos,
-
     "♻️ Recapadoras": layerRecapadoras,
-
     "⚡ Auto Elétrica": layerAutoEletrica,
-
     "🌡️ Radiadores": layerRadiadores
-
 };
 
 L.control.layers(baseMaps, overlays, {
     collapsed: false,
     autoZIndex: false
-}).addTo(map);   
+}).addTo(map);
+
+//////////////////// 🔥 ADICIONAR AO MAPA (ESSENCIAL) ////////////////////
+
+layerLocalizacao.addTo(map);
+layerFiliais.addTo(map);
+layerRotas.addTo(map);
+layerRedeNacional.addTo(map);
+
+layerOficinas.addTo(map);
+layerBorracharias.addTo(map);
+layerGuinchos.addTo(map);
+layerPostoMolas.addTo(map);
+layerTacografos.addTo(map);
+layerRecapadoras.addTo(map);
+layerAutoEletrica.addTo(map);
+layerRadiadores.addTo(map);
 
 //////////////////// ÍCONES ////////////////////
 
 const fornecedorIcon = new L.Icon({
-    iconUrl:'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-green.png',
-    shadowUrl:'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png',
-    iconSize:[25,41],
-    iconAnchor:[12,41]
+    iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-green.png',
+    shadowUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png',
+    iconSize: [25, 41],
+    iconAnchor: [12, 41]
 });
 
 const filialIcon = new L.Icon({
-    iconUrl:'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-blue.png',
-    shadowUrl:'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
-    iconSize:[25,41],
-    iconAnchor:[12,41]
+    iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-blue.png',
+    shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+    iconSize: [25, 41],
+    iconAnchor: [12, 41]
 });
 
 const guinchoIcon = L.divIcon({
     html: `<div style="font-size:34px;text-align:center;">🚛</div>`,
-    className:'',
-    iconSize:[34,34],
-    iconAnchor:[17,17]
+    className: '',
+    iconSize: [34, 34],
+    iconAnchor: [17, 17]
 });
 
 const minhaPosicaoIcon = new L.Icon({
