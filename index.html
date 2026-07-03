@@ -703,32 +703,30 @@ legenda.onAdd = function(){
 
     const div = L.DomUtil.create('div','legend');
 
-div.innerHTML = `
-<h4>Legenda</h4>
+    div.innerHTML = `
+        <h4>Legenda</h4>
 
-🔵 Filiais BBM / Translovato<br>
-🔧 Filial com Oficina Interna<br>
-🔴 Oficinas Diesel / Socorro<br>
-🟢 Oficinas Homologadas Nimbi<br>
-🚚 Guinchos Pesados 24h<br>
+        🔵 Filiais BBM / Translovato<br>
+        🔧 Filial com Oficina Interna<br>
+        🔴 Oficinas Diesel / Socorro<br>
+        🟢 Oficinas Homologadas Nimbi<br>
+        🚚 Guinchos Pesados 24h<br>
 
-<span style="
-display:inline-block;
-width:35px;
-height:4px;
-background:blue;
-vertical-align:middle;
-margin-right:8px;
-border-radius:2px;
-"></span> Rotas Operacionais
-
-`;
+        <span style="
+        display:inline-block;
+        width:35px;
+        height:4px;
+        background:blue;
+        vertical-align:middle;
+        margin-right:8px;
+        border-radius:2px;
+        "></span> Rotas Operacionais
+    `;
 
     return div;
+};
 
 legenda.addTo(map);
-    
-};
     
 /////////////////////////////////////////////////////
 // GEOLOCALIZAÇÃO
