@@ -148,14 +148,14 @@ L.control.layers(baseMaps, overlays, {
 
 //////////////////// ÍCONES ////////////////////
 
-const oficinaIcon = new L.Icon({
-    iconUrl:'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png',
-    shadowUrl:'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+const fornecedorIcon = new L.Icon({
+    iconUrl:'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-green.png',
+    shadowUrl:'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png',
     iconSize:[25,41],
     iconAnchor:[12,41]
 });
 
-const homologadaIcon = new L.Icon({
+const fornecedorIcon = new L.Icon({
     iconUrl:'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-green.png',
     shadowUrl:'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png',
     iconSize:[25,41],
@@ -587,193 +587,35 @@ filiais.forEach(f => {
     }).addTo(layerFiliais);
 
     marker.bindPopup(`
-    <div class="popup-title">${f[0]}</div>
+<div class="popup-title">${f.nome}</div>
 
-    <b>Cidade:</b> ${f[1]}<br>
-    <b>Tipo:</b> Filial Operacional<br>
-    ${f[4] ? '<b>🔧 Oficina Interna Própria</b><br>' : ''}
+<b>Categoria:</b> ${f.categoria}<br>
+<b>Cidade:</b> ${f.cidade} - ${f.estado}<br>
+<b>Contato:</b> ${f.contato || "-"}<br>
+<b>Telefone:</b> ${f.telefone || "-"}<br>
 
-    <br>
+<br>
 
-    <button
-        onclick="tracarRota(${f[2]},${f[3]})"
-        style="
-            width:100%;
-            padding:8px;
-            margin-bottom:5px;
-            cursor:pointer;
-        "
-    >
-        🧭 Rota no Mapa
-    </button>
+<button
+onclick="tracarRota(${f.latitude},${f.longitude})"
+style="width:100%;padding:8px;margin-bottom:6px;">
+🧭 Rota no mapa
+</button>
 
-    <button
-        onclick="abrirGoogleMaps(${f[2]},${f[3]})"
-        style="
-            width:100%;
-            padding:8px;
-            margin-bottom:5px;
-            cursor:pointer;
-        "
-    >
-        🗺️ Google Maps
-    </button>
+<button
+onclick="abrirGoogleMaps(${f.latitude},${f.longitude})"
+style="width:100%;padding:8px;margin-bottom:6px;">
+🗺️ Google Maps
+</button>
 
-    <button
-        onclick="abrirWaze(${f[2]},${f[3]})"
-        style="
-            width:100%;
-            padding:8px;
-            cursor:pointer;
-        "
-    >
-        🚗 Waze
-    </button>
+<button
+onclick="abrirWaze(${f.latitude},${f.longitude})"
+style="width:100%;padding:8px;">
+🚗 Waze
+</button>
 `);
 
-    marker.bindTooltip(`
-        <b>${f[0]}</b><br>
-        📍 ${f[1]}<br>
-        🏢 Filial Operacional<br>
-        ${f[4] ? '🔧 Oficina Interna' : ''}
-    `,{
-        permanent:false,
-        direction:'top',
-        opacity:0.95
-    });
 
-});
-
-// ================== OFICINAS ==================
-
-
-    
-oficinas.forEach(o => {
-
-    const marker = L.marker([o.lat,o.lng],{
-        icon:oficinaIcon
-    }).addTo(layerOficinas);
-
-    marker.bindPopup(`
-    <div class="popup-title">${o.nome}</div>
-
-    <b>Cidade:</b> ${o.cidade}<br>
-    <b>Telefone:</b> ${o.telefone}<br>
-    <b>Atendimento:</b> ${o.tipo}<br><br>
-
-    <button
-        onclick="tracarRota(${o.lat},${o.lng})"
-        style="
-            width:100%;
-            padding:8px;
-            margin-bottom:5px;
-            cursor:pointer;
-        "
-    >
-        🧭 Rota no Mapa
-    </button>
-
-    <button
-        onclick="abrirGoogleMaps(${o.lat},${o.lng})"
-        style="
-            width:100%;
-            padding:8px;
-            margin-bottom:5px;
-            cursor:pointer;
-        "
-    >
-        🗺️ Google Maps
-    </button>
-
-    <button
-        onclick="abrirWaze(${o.lat},${o.lng})"
-        style="
-            width:100%;
-            padding:8px;
-            cursor:pointer;
-        "
-    >
-        🚗 Waze
-    </button>
-`);
-
-    marker.bindTooltip(`
-        <b>${o.nome}</b><br>
-        📍 ${o.cidade}<br>
-        📞 ${o.telefone}
-    `,{
-        permanent:false,
-        direction:'top',
-        opacity:0.95
-    });
-
-});
-
-homologadas.forEach(o => {
-
-    const marker = L.marker([o.lat,o.lng],{
-        icon:homologadaIcon
-    }).addTo(layerHomologadas);
-
-    marker.bindPopup(`
-    <div class="popup-title">${o.nome}</div>
-
-    <b>Cidade:</b> ${o.cidade}<br>
-    <b>Telefone:</b> ${o.telefone}<br>
-    <b>Status:</b> Oficina Homologada Nimbi<br>
-
-    <br>
-
-    <button
-        onclick="tracarRota(${o.lat},${o.lng})"
-        style="
-            width:100%;
-            padding:8px;
-            margin-bottom:5px;
-            cursor:pointer;
-        "
-    >
-        🧭 Rota no Mapa
-    </button>
-
-    <button
-        onclick="abrirGoogleMaps(${o.lat},${o.lng})"
-        style="
-            width:100%;
-            padding:8px;
-            margin-bottom:5px;
-            cursor:pointer;
-        "
-    >
-        🗺️ Google Maps
-    </button>
-
-    <button
-        onclick="abrirWaze(${o.lat},${o.lng})"
-        style="
-            width:100%;
-            padding:8px;
-            cursor:pointer;
-        "
-    >
-        🚗 Waze
-    </button>
-`);
-
-    marker.bindTooltip(`
-        <b>${o.nome}</b><br>
-        📍 ${o.cidade}<br>
-        📞 ${o.telefone}<br>
-        🟢 Homologada Nimbi
-    `,{
-        permanent:false,
-        direction:'top',
-        opacity:0.95
-    });
-
-});
-    
-    
 /////////////////////////////////////////////////////
 // TRAÇAR ROTA
 /////////////////////////////////////////////////////
@@ -966,9 +808,12 @@ async function carregarFornecedores() {
             .replace(/[\u0300-\u036f]/g,"")
             .trim();
 
-        switch (categoria) {
+        switch(categoria){
 
+    case "oficina":
     case "oficina diesel":
+    case "oficina mecanica":
+    case "mecanica diesel":
         layer = layerOficinas;
         break;
 
@@ -977,6 +822,7 @@ async function carregarFornecedores() {
         break;
 
     case "guincho":
+    case "guinchos":
         layer = layerGuinchos;
         break;
 
@@ -985,6 +831,7 @@ async function carregarFornecedores() {
         break;
 
     case "tacografo":
+    case "tacógrafo":
         layer = layerTacografos;
         break;
 
@@ -993,21 +840,24 @@ async function carregarFornecedores() {
         break;
 
     case "auto eletrica":
+    case "auto elétrica":
         layer = layerAutoEletrica;
         break;
 
-    case "radiadores":
     case "radiador":
+    case "radiadores":
         layer = layerRadiadores;
         break;
 
+    default:
+        return;
 }
 
         if(!layer) return;
 
         const marker = L.marker(
             [f.latitude,f.longitude],
-            {icon:homologadaIcon}
+            {icon:fornecedorIcon}
         ).addTo(layer);
 
         marker.bindPopup(`
