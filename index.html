@@ -94,26 +94,51 @@ map.on('click', function () {
     
 //////////////////// CAMADAS ////////////////////
 
-const layerFiliais = L.layerGroup();
-const layerOficinas = L.layerGroup();
-const layerHomologadas = L.layerGroup();
-const layerGuinchos = L.layerGroup();
-const layerRotas = L.layerGroup();
-const layerRedeNacional = L.layerGroup(); 
-    
 const layerLocalizacao = L.layerGroup();
-let rotasCarregadas = false;    
 
+const layerFiliais = L.layerGroup();
+const layerRotas = L.layerGroup();
+const layerRedeNacional = L.layerGroup();
+
+const layerOficinas = L.layerGroup();
+const layerBorracharias = L.layerGroup();
+const layerGuinchos = L.layerGroup();
+const layerPostoMolas = L.layerGroup();
+const layerTacografos = L.layerGroup();
+const layerRecapadoras = L.layerGroup();
+const layerAutoEletrica = L.layerGroup();
+const layerRadiadores = L.layerGroup();
+
+let rotasCarregadas = false;
+ 
 
 const baseMaps = {};
 const overlays = {
+
     "📍 Minha Localização": layerLocalizacao,
+
+    "🚛 Rotas Operacionais": layerRotas,
+
     "🔵 Filiais": layerFiliais,
-    "🔴 Oficinas": layerOficinas,
-    "🟢 Homologadas": layerHomologadas,
-    "🚛 Guinchos": layerGuinchos,
-    "━ Rotas": layerRotas,
-    "🌐 Rede Nacional": layerRedeNacional
+
+    "🌐 Rede Nacional": layerRedeNacional,
+
+    "🔧 Oficinas Mecânicas": layerOficinas,
+
+    "🛞 Borracharias": layerBorracharias,
+
+    "🚚 Guinchos": layerGuinchos,
+
+    "🛠️ Posto de Molas": layerPostoMolas,
+
+    "⚙️ Tacógrafos": layerTacografos,
+
+    "♻️ Recapadoras": layerRecapadoras,
+
+    "⚡ Auto Elétrica": layerAutoEletrica,
+
+    "🌡️ Radiadores": layerRadiadores
+
 };
 
 L.control.layers(baseMaps, overlays, {
@@ -151,19 +176,19 @@ const guinchoIcon = L.divIcon({
     iconAnchor:[17,17]
 });
 
-const minhaPosicaoIcon = L.divIcon({
-    html: `
-        <div style="
-            font-size:32px;
-            text-align:center;
-        ">
-        🚛
-        </div>
-    `,
-    className:'',
-    iconSize:[32,32],
-    iconAnchor:[16,16]
-});    
+const minhaPosicaoIcon = new L.Icon({
+
+    iconUrl:'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png',
+
+    shadowUrl:'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png',
+
+    iconSize:[25,41],
+
+    iconAnchor:[12,41],
+
+    popupAnchor:[1,-34]
+
+});  
 
 //////////////////// ROTAS (agora na layer correta) ////////////////////
 
@@ -1462,8 +1487,95 @@ if (navigator.geolocation) {
     );
 
 }
+
+async function carregarFornecedores() {
+
+    const resposta = await fetch("https://script.google.com/macros/s/AKfycbz-uSX665noO6AiNPkKBShfQ2qadvtN27sAVp6BA0Bfq4GMb2f3tklXihJci5IS-4pK/exec");
+
+    const fornecedores = await resposta.json();
+
+    fornecedores.forEach(f => {
+
+        let layer = null;
+
+        const categoria = (f.categoria || "")
+            .toLowerCase()
+            .normalize("NFD")
+            .replace(/[\u0300-\u036f]/g,"")
+            .trim();
+
+        switch(categoria){
+
+            case "oficina":
+            case "oficina mecanica":
+                layer = layerOficinas;
+                break;
+
+            case "borracharia":
+                layer = layerBorracharias;
+                break;
+
+            case "guincho":
+                layer = layerGuinchos;
+                break;
+
+            case "posto de molas":
+                layer = layerPostoMolas;
+                break;
+
+            case "tacografo":
+                layer = layerTacografos;
+                break;
+
+            case "recapadora":
+                layer = layerRecapadoras;
+                break;
+
+            case "auto eletrica":
+                layer = layerAutoEletrica;
+                break;
+
+            case "radiador":
+                layer = layerRadiadores;
+                break;
+        }
+
+        if(!layer) return;
+
+        const marker = L.marker(
+            [f.latitude,f.longitude],
+            {icon:homologadaIcon}
+        ).addTo(layer);
+
+        marker.bindPopup(`
+            <div class="popup-title">${f.nome}</div>
+
+            <b>Categoria:</b> ${f.categoria}<br>
+            <b>Cidade:</b> ${f.cidade}/${f.estado}<br>
+            <b>Telefone:</b> ${f.telefone}<br>
+
+            <br>
+
+            <button
+                onclick="tracarRota(${f.latitude},${f.longitude})"
+                style="width:100%;padding:8px;margin-bottom:5px;">
+                🧭 Rota
+            </button>
+
+            <button
+                onclick="abrirGoogleMaps(${f.latitude},${f.longitude})"
+                style="width:100%;padding:8px;">
+                🗺️ Google Maps
+            </button>
+        `);
+
+    });
+
+}    
     
 legenda.addTo(map);
+
+carregarFornecedores();    
 
 map.on('overlayadd', function(e) {
     if (e.layer === layerRotas) {
