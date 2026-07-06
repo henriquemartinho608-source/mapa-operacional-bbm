@@ -805,19 +805,25 @@ async function carregarFornecedores() {
 
     const fornecedores = await resposta.json();
 
-    fornecedores.forEach(f => {
+console.log("Total de fornecedores:", fornecedores.length);
 
-        let layer = null;
+// Lista todas as categorias existentes (sem repetir)
+const categorias = [...new Set(fornecedores.map(f => f.categoria))];
+console.log("Categorias encontradas:", categorias);
 
-const categoria = (f.categoria || "")
-    .toLowerCase()
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g,"")
-    .trim();
+fornecedores.forEach(f => {
 
-console.log(f.categoria, "=>", categoria);
+    let layer = null;
 
-switch(categoria){
+    const categoria = (f.categoria || "")
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g,"")
+        .trim();
+
+    console.log(f.categoria, "=>", categoria);
+
+    switch(categoria){
 
     case "oficina":
     case "oficina diesel":
