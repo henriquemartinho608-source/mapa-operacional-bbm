@@ -816,57 +816,60 @@ fornecedores.forEach(f => {
     let layer = null;
 
     const categoria = (f.categoria || "")
-        .toLowerCase()
-        .normalize("NFD")
-        .replace(/[\u0300-\u036f]/g,"")
-        .trim();
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g,"")
+    .replace(/[_-]/g," ")   // 🔥 CORRIGE underscores
+    .replace(/\s+/g," ")    // 🔥 corrige espaços duplos
+    .trim();
 
     console.log(f.categoria, "=>", categoria);
 
     switch(categoria){
 
-    case "oficina":
-    case "oficina diesel":
-    case "oficina mecanica":
-    case "mecanica diesel":
-        layer = layerOficinas;
-        break;
+case "oficina":
+case "oficina diesel":
+case "oficina mecanica":
+case "mecanica diesel":
+    layer = layerOficinas;
+    break;
 
 case "borracharia":
-case "borracharia_pneus":
+case "borracharia pneus":
+case "borracharia pneus":
     layer = layerBorracharias;
     break;
 
-    case "guincho":
-    case "guinchos":
-        layer = layerGuinchos;
-        break;
+case "guincho":
+case "guinchos":
+    layer = layerGuinchos;
+    break;
 
-    case "posto de molas":
-        layer = layerPostoMolas;
-        break;
+case "posto de molas":
+    layer = layerPostoMolas;
+    break;
 
-    case "tacografo":
-    case "tacógrafo":
-        layer = layerTacografos;
-        break;
+case "tacografo":
+case "tacografos":
+    layer = layerTacografos;
+    break;
 
-    case "recapadora":
-        layer = layerRecapadoras;
-        break;
+case "recapadora":
+    layer = layerRecapadoras;
+    break;
 
-    case "auto eletrica":
-    case "auto elétrica":
-        layer = layerAutoEletrica;
-        break;
+case "auto eletrica":
+case "auto eletrica diesel":
+    layer = layerAutoEletrica;
+    break;
 
-    case "radiador":
-    case "radiadores":
-        layer = layerRadiadores;
-        break;
+case "radiador":
+case "radiadores":
+    layer = layerRadiadores;
+    break;
 
-    default:
-        return;
+default:
+    return;
 }
 
         if(!layer) return;
