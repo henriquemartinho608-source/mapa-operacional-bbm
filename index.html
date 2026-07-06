@@ -86,10 +86,12 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
 
 map.on('click', function () {
 
-    if (rotaNavegacao !== null) {
+    if (rotaNavegacao) {
+    try{
         map.removeControl(rotaNavegacao);
-        rotaNavegacao = null;
-    }
+    }catch(e){}
+    rotaNavegacao = null;
+}
 
 });
     
