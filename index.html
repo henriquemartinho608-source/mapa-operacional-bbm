@@ -98,6 +98,7 @@ map.on('click', function () {
 //////////////////// CAMADAS ////////////////////
 
 const layerLocalizacao = L.layerGroup();
+
 const layerFiliais = L.layerGroup();
 const layerRotas = L.layerGroup();
 const layerRedeNacional = L.layerGroup();
@@ -106,14 +107,13 @@ const layerOficinas = L.layerGroup();
 const layerBorracharias = L.layerGroup();
 const layerGuinchos = L.layerGroup();
 const layerPostoMolas = L.layerGroup();
-const layerTacografos = L.layerGroup();
 const layerRecapadoras = L.layerGroup();
-const layerAutoEletrica = L.layerGroup();
-const layerRadiadores = L.layerGroup();
 
 let rotasCarregadas = false;
 
 //////////////////// BASE / OVERLAYS ////////////////////
+
+const baseMaps = {};
 
 const baseMaps = {};
 
@@ -128,11 +128,7 @@ const overlays = {
     "🛞 Borracharias": layerBorracharias,
     "🚚 Guinchos": layerGuinchos,
     "🛠️ Posto de Molas": layerPostoMolas,
-    "⚙️ Tacógrafos": layerTacografos,
-    "♻️ Recapadoras": layerRecapadoras,
-    "⚡ Auto Elétrica": layerAutoEletrica,
-    "🌡️ Radiadores": layerRadiadores
-
+    "♻️ Recapadoras": layerRecapadoras
 };
 
 L.control.layers(baseMaps, overlays, {
@@ -168,10 +164,7 @@ layerOficinas.addTo(map);
 layerBorracharias.addTo(map);
 layerGuinchos.addTo(map);
 layerPostoMolas.addTo(map);
-layerTacografos.addTo(map);
 layerRecapadoras.addTo(map);
-layerAutoEletrica.addTo(map);
-layerRadiadores.addTo(map);
 
 //////////////////// ÍCONES ////////////////////
 
@@ -827,49 +820,33 @@ fornecedores.forEach(f => {
 
     switch(categoria){
 
-case "oficina":
-case "oficina diesel":
-case "oficina mecanica":
-case "mecanica diesel":
-    layer = layerOficinas;
-    break;
+    case "oficina":
+    case "oficina diesel":
+    case "oficina mecanica":
+    case "mecanica diesel":
+        layer = layerOficinas;
+        break;
 
-case "borracharia":
-case "borracharia pneus":
-case "borracharia pneus":
-    layer = layerBorracharias;
-    break;
+    case "borracharia":
+    case "borracharia_pneus":
+        layer = layerBorracharias;
+        break;
 
-case "guincho":
-case "guinchos":
-    layer = layerGuinchos;
-    break;
+    case "guincho":
+    case "guinchos":
+        layer = layerGuinchos;
+        break;
 
-case "posto de molas":
-    layer = layerPostoMolas;
-    break;
+    case "posto de molas":
+        layer = layerPostoMolas;
+        break;
 
-case "tacografo":
-case "tacografos":
-    layer = layerTacografos;
-    break;
+    case "recapadora":
+        layer = layerRecapadoras;
+        break;
 
-case "recapadora":
-    layer = layerRecapadoras;
-    break;
-
-case "auto eletrica":
-case "auto eletrica diesel":
-    layer = layerAutoEletrica;
-    break;
-
-case "radiador":
-case "radiadores":
-    layer = layerRadiadores;
-    break;
-
-default:
-    return;
+    default:
+        return;
 }
 
         if(!layer) return;
