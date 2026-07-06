@@ -697,11 +697,14 @@ function abrirWaze(lat,lng){
 
 }    
 
-function carregarRotasSeNecessario() {
+fasync function carregarRotasSeNecessario() {
+
     if (rotasCarregadas) return;
 
     rotasCarregadas = true;
-    desenharTodasRotas();
+
+    await desenharTodasRotas();
+
 }
     
 // ================== LEGENDA ==================
@@ -804,13 +807,15 @@ async function carregarFornecedores() {
 
         let layer = null;
 
-        const categoria = (f.categoria || "")
-            .toLowerCase()
-            .normalize("NFD")
-            .replace(/[\u0300-\u036f]/g,"")
-            .trim();
+const categoria = (f.categoria || "")
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g,"")
+    .trim();
 
-        switch(categoria){
+console.log(categoria);
+
+switch(categoria){
 
     case "oficina":
     case "oficina diesel":
