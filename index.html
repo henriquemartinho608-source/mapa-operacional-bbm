@@ -848,10 +848,25 @@ fornecedores.forEach(f => {
             return;
     }
 
-    const marker = L.marker(
-        [f.latitude, f.longitude],
-        { icon: fornecedorIcon }
-    ).addTo(layer);
+    let icone = oficinaIcon;
+
+if(layer === layerBorracharias){
+    icone = borrachariaIcon;
+}
+else if(layer === layerGuinchos){
+    icone = guinchoIcon;
+}
+else if(layer === layerPostoMolas){
+    icone = molasIcon;
+}
+else if(layer === layerRecapadoras){
+    icone = recapadoraIcon;
+}
+
+const marker = L.marker(
+    [f.latitude,f.longitude],
+    {icon: icone}
+).addTo(layer);
 
     marker.bindPopup(`
         <div class="popup-title">${f.nome}</div>
