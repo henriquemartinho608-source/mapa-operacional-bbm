@@ -138,33 +138,63 @@ layerFiliais.addTo(map);
 
 //////////////////// ÍCONES ////////////////////
 
-const fornecedorIcon = new L.Icon({
-    iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-green.png',
-    shadowUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png',
-    iconSize: [25,41],
-    iconAnchor: [12,41]
-});
+//////////////////// ÍCONES ////////////////////
 
+// Filiais
 const filialIcon = new L.Icon({
-    iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-blue.png',
-    shadowUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png',
-    iconSize: [25,41],
-    iconAnchor: [12,41]
+    iconUrl:'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-blue.png',
+    shadowUrl:'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png',
+    iconSize:[25,41],
+    iconAnchor:[12,41]
 });
 
+// Minha localização
 const minhaPosicaoIcon = L.divIcon({
-    html: '<div style="font-size:30px;">📍</div>',
-    className: '',
-    iconSize: [30,30],
-    iconAnchor: [15,30]
+    html:'<div style="font-size:30px;">📍</div>',
+    className:'',
+    iconSize:[30,30],
+    iconAnchor:[15,30]
 });
 
-const guinchoIcon = L.divIcon({
-    html: '<div style="font-size:32px;">🚛</div>',
-    className: '',
-    iconSize: [32,32],
-    iconAnchor: [16,16]
+// Oficina
+const oficinaIcon = L.divIcon({
+    html:'<div style="font-size:28px;">🔧</div>',
+    className:'',
+    iconSize:[28,28],
+    iconAnchor:[14,14]
 });
+
+// Borracharia
+const borrachariaIcon = L.divIcon({
+    html:'<div style="font-size:28px;">🛞</div>',
+    className:'',
+    iconSize:[28,28],
+    iconAnchor:[14,14]
+});
+
+// Guincho
+const guinchoIcon = L.divIcon({
+    html:'<div style="font-size:30px;">🚚</div>',
+    className:'',
+    iconSize:[30,30],
+    iconAnchor:[15,15]
+});
+
+// Posto de Molas
+const molasIcon = L.divIcon({
+    html:'<div style="font-size:28px;">🛠️</div>',
+    className:'',
+    iconSize:[28,28],
+    iconAnchor:[14,14]
+});
+
+// Recapadora
+const recapadoraIcon = L.divIcon({
+    html:'<div style="font-size:28px;">♻️</div>',
+    className:'',
+    iconSize:[28,28],
+    iconAnchor:[14,14]
+});    
 
 //////////////////// ROTAS (agora na layer correta) ////////////////////
 
