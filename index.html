@@ -789,7 +789,7 @@ async function carregarFornecedores() {
 
 console.log("Total de fornecedores:", fornecedores.length);
 
-// Lista todas as categorias existentes (sem repetir)
+// Lista todas as categorias existentes
 const categorias = [...new Set(fornecedores.map(f => f.categoria))];
 console.log("Categorias encontradas:", categorias);
 
@@ -798,76 +798,72 @@ fornecedores.forEach(f => {
     let layer = null;
 
     const categoria = (f.categoria || "")
-    .toLowerCase()
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g,"")
-    .replace(/[_-]/g," ")   // 🔥 CORRIGE underscores
-    .replace(/\s+/g," ")    // 🔥 corrige espaços duplos
-    .trim();
-
-    console.log(f.categoria, "=>", categoria);
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g,"")
+        .replace(/[_-]/g," ")     // transforma Borracharia_Pneus em borracharia pneus
+        .replace(/\s+/g," ")      // remove espaços duplicados
+        .trim();
 
     switch(categoria){
 
-    case "oficina":
-    case "oficina diesel":
-    case "oficina mecanica":
-    case "mecanica diesel":
-        layer = layerOficinas;
-        break;
+        case "oficina":
+        case "oficina diesel":
+        case "oficina mecanica":
+        case "mecanica diesel":
+            layer = layerOficinas;
+            break;
 
-    case "borracharia":
-    case "borracharia_pneus":
-        layer = layerBorracharias;
-        break;
+        case "borracharia":
+        case "borracharia pneus":
+            layer = layerBorracharias;
+            break;
 
-    case "guincho":
-    case "guinchos":
-        layer = layerGuinchos;
-        break;
+        case "guincho":
+        case "guinchos":
+            layer = layerGuinchos;
+            break;
 
-    case "posto de molas":
-        layer = layerPostoMolas;
-        break;
+        case "posto de molas":
+            layer = layerPostoMolas;
+            break;
 
-    case "recapadora":
-        layer = layerRecapadoras;
-        break;
+        case "recapadora":
+            layer = layerRecapadoras;
+            break;
 
-    default:
-        return;
-}
+        default:
+            return;
+    }
 
-        if(!layer) return;
+    const marker = L.marker(
+        [f.latitude, f.longitude],
+        { icon: fornecedorIcon }
+    ).addTo(layer);
 
-        const marker = L.marker(
-            [f.latitude,f.longitude],
-            {icon:fornecedorIcon}
-        ).addTo(layer);
+    marker.bindPopup(`
+        <div class="popup-title">${f.nome}</div>
 
-        marker.bindPopup(`
-            <div class="popup-title">${f.nome}</div>
+        <b>Categoria:</b> ${f.categoria}<br>
+        <b>Cidade:</b> ${f.cidade}/${f.estado}<br>
+        <b>Telefone:</b> ${f.telefone}<br>
 
-            <b>Categoria:</b> ${f.categoria}<br>
-            <b>Cidade:</b> ${f.cidade}/${f.estado}<br>
-            <b>Telefone:</b> ${f.telefone}<br>
+        <br>
 
-            <br>
+        <button
+            onclick="tracarRota(${f.latitude},${f.longitude})"
+            style="width:100%;padding:8px;margin-bottom:5px;">
+            🧭 Rota
+        </button>
 
-            <button
-                onclick="tracarRota(${f.latitude},${f.longitude})"
-                style="width:100%;padding:8px;margin-bottom:5px;">
-                🧭 Rota
-            </button>
+        <button
+            onclick="abrirGoogleMaps(${f.latitude},${f.longitude})"
+            style="width:100%;padding:8px;">
+            🗺️ Google Maps
+        </button>
+    `);
 
-            <button
-                onclick="abrirGoogleMaps(${f.latitude},${f.longitude})"
-                style="width:100%;padding:8px;">
-                🗺️ Google Maps
-            </button>
-        `);
-
-    });
+});
 
 }    
     
