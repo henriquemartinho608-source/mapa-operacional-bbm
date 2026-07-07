@@ -862,20 +862,28 @@ fornecedores.forEach(f => {
             return;
     }
 
-    let icone = oficinaIcon;
+    function obterIcone(layer){
 
-if(layer === layerBorracharias){
-    icone = borrachariaIcon;
+    if(layer === layerOficinas) return oficinaIcon;
+
+    if(layer === layerBorracharias) return borrachariaIcon;
+
+    if(layer === layerGuinchos) return guinchoIcon;
+
+    if(layer === layerPostoMolas) return molasIcon;
+
+    if(layer === layerRecapadoras) return recapadoraIcon;
+
+    return oficinaIcon;
+
 }
-else if(layer === layerGuinchos){
-    icone = guinchoIcon;
-}
-else if(layer === layerPostoMolas){
-    icone = molasIcon;
-}
-else if(layer === layerRecapadoras){
-    icone = recapadoraIcon;
-}
+
+const marker = L.marker(
+    [f.latitude, f.longitude],
+    {
+        icon: obterIcone(layer)
+    }
+).addTo(layer);
 
 const marker = L.marker(
     [f.latitude,f.longitude],
