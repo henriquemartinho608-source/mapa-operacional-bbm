@@ -869,26 +869,32 @@ const marker = L.marker(
 ).addTo(layer);
 
     marker.bindPopup(`
-        <div class="popup-title">${f.nome}</div>
+    <div class="popup-title">${f.nome}</div>
 
-        <b>Categoria:</b> ${f.categoria}<br>
-        <b>Cidade:</b> ${f.cidade}/${f.estado}<br>
-        <b>Telefone:</b> ${f.telefone}<br>
+    <b>Categoria:</b> ${f.categoria}<br>
+    <b>Cidade:</b> ${f.cidade}/${f.estado}<br>
+    <b>Telefone:</b> ${f.telefone || "-"}<br>
 
-        <br>
+    <br>
 
-        <button
-            onclick="tracarRota(${f.latitude},${f.longitude})"
-            style="width:100%;padding:8px;margin-bottom:5px;">
-            🧭 Rota
-        </button>
+    <button
+        onclick="tracarRota(${f.latitude},${f.longitude})"
+        style="width:100%;padding:8px;margin-bottom:6px;">
+        🧭 Rota no mapa
+    </button>
 
-        <button
-            onclick="abrirGoogleMaps(${f.latitude},${f.longitude})"
-            style="width:100%;padding:8px;">
-            🗺️ Google Maps
-        </button>
-    `);
+    <button
+        onclick="abrirGoogleMaps(${f.latitude},${f.longitude})"
+        style="width:100%;padding:8px;margin-bottom:6px;">
+        🗺️ Google Maps
+    </button>
+
+    <button
+        onclick="abrirWaze(${f.latitude},${f.longitude})"
+        style="width:100%;padding:8px;">
+        🚗 Waze
+    </button>
+`);
 
 });
 
