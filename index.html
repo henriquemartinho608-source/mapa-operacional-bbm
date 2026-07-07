@@ -10,6 +10,8 @@
 
 <link rel="stylesheet"
 href="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.css"/>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">    
     
 <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.css" />    
 
@@ -158,10 +160,22 @@ const minhaPosicaoIcon = L.divIcon({
 
 // Oficina
 const oficinaIcon = L.divIcon({
-    html:'<div style="font-size:28px;">🔧</div>',
+
+    html: `
+    <div style="
+        color:#1976d2;
+        font-size:28px;
+        text-shadow:1px 1px 3px rgba(0,0,0,.45);
+    ">
+        <i class="fa-solid fa-screwdriver-wrench"></i>
+    </div>`,
+
     className:'',
-    iconSize:[28,28],
-    iconAnchor:[14,14]
+
+    iconSize:[30,30],
+
+    iconAnchor:[15,15]
+
 });
 
 // Borracharia
