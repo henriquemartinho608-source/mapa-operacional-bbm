@@ -59,6 +59,11 @@ body{
     border:none !important;
 }
 
+.icone-transparente{
+    background:transparent !important;
+    border:none !important;
+}    
+
 /* ===== POPUP PREMIUM ===== */
 
 .leaflet-popup-content-wrapper{
@@ -219,7 +224,6 @@ L.control.layers(baseMaps, overlays, {
 layerLocalizacao.addTo(map);
 layerFiliais.addTo(map);
 
-//////////////////// ÍCONES ////////////////////
 
 //////////////////// ÍCONES ////////////////////
 
@@ -227,8 +231,9 @@ layerFiliais.addTo(map);
 const filialIcon = L.icon({
     iconUrl: "icons/filial.png",
     iconSize: [70,51],
-    iconAnchor: [21,52],
-    popupAnchor: [0,-48]
+    iconAnchor: [35,51],
+    popupAnchor: [0,-45],
+    className: 'icone-transparente'
 });
 
 // Minha localização
