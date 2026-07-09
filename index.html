@@ -690,33 +690,39 @@ filiais.forEach(f => {
     }).addTo(layerFiliais);
 
     marker.bindPopup(`
-    <div class="popup-title">${f.nome}</div>
+<div class="popup-header">
+    <h3>${f[0]}</h3>
+    <span class="popup-categoria">
+        ${f[4] ? "🔧 Oficina Interna" : "🏢 Filial"}
+    </span>
+</div>
 
-    <b>Categoria:</b> ${f.categoria}<br>
-    <b>Cidade:</b> ${f.cidade}/${f.estado}<br>
-    <b>Telefone:</b> ${f.telefone}<br>
+<div class="popup-body">
 
-    <br>
+    <b>📍 Localização:</b> ${f[1]}<br>
 
-    <button
-        onclick="tracarRota(${f.latitude},${f.longitude})"
-        style="width:100%;padding:8px;margin-bottom:6px;">
-        🧭 Rota no mapa
-    </button>
+    <div class="popup-acoes">
 
-    <button
-        onclick="abrirGoogleMaps(${f.latitude},${f.longitude})"
-        style="width:100%;padding:8px;margin-bottom:6px;">
-        🗺️ Google Maps
-    </button>
+        <button class="btn-rota"
+            onclick="tracarRota(${f[2]},${f[3]})">
+            🧭 Rota
+        </button>
 
-    <button
-        onclick="abrirWaze(${f.latitude},${f.longitude})"
-        style="width:100%;padding:8px;">
-        🚗 Waze
-    </button>
+        <button class="btn-google"
+            onclick="abrirGoogleMaps(${f[2]},${f[3]})">
+            Google
+        </button>
+
+        <button class="btn-waze"
+            onclick="abrirWaze(${f[2]},${f[3]})">
+            Waze
+        </button>
+
+    </div>
+
+</div>
 `);
-
+    
 });
 
 /////////////////////////////////////////////////////
