@@ -689,6 +689,11 @@ const filiais = [
 
 filiais.forEach(f => {
 
+    if(!f || !f[2] || !f[3]){
+        console.warn("Filial ignorada:", f);
+        return;
+    }
+
     const marker = L.marker([f[2], f[3]], {
         icon: filialIcon
     }).addTo(layerFiliais);
