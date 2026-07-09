@@ -72,7 +72,8 @@ body{
 
 .leaflet-popup-content{
     margin:0;
-    width:240px !important;
+    width:340px !important;
+    max-width:340px !important;
     font-family:Segoe UI,Arial,sans-serif;
 }
 
@@ -103,7 +104,8 @@ body{
     padding:12px 14px;
     color:#444;
     font-size:13px;
-    line-height:1.6;
+    line-height:1.7;
+    word-break:break-word;
 }
 
 .popup-acoes{
@@ -966,32 +968,39 @@ const marker = L.marker(
     }
 ).addTo(layer);
 
-    marker.bindPopup(`
-    <div class="popup-title">${f.nome}</div>
+   marker.bindPopup(`
+<div class="popup-header">
+    <h3>${f.nome}</h3>
+    <span class="popup-categoria">${f.categoria}</span>
+</div>
 
-    <b>Categoria:</b> ${f.categoria}<br>
-    <b>Cidade:</b> ${f.cidade}/${f.estado}<br>
-    <b>Telefone:</b> ${f.telefone || "-"}<br>
+<div class="popup-body">
 
-    <br>
+    <b>📍 Cidade:</b> ${f.cidade}/${f.estado}<br>
 
-    <button
-        onclick="tracarRota(${f.latitude},${f.longitude})"
-        style="width:100%;padding:8px;margin-bottom:6px;">
-        🧭 Rota no mapa
-    </button>
+    <b>📞 Telefone:</b>
+    ${f.telefone ? f.telefone : "Não informado"}
 
-    <button
-        onclick="abrirGoogleMaps(${f.latitude},${f.longitude})"
-        style="width:100%;padding:8px;margin-bottom:6px;">
-        🗺️ Google Maps
-    </button>
+    <div class="popup-acoes">
 
-    <button
-        onclick="abrirWaze(${f.latitude},${f.longitude})"
-        style="width:100%;padding:8px;">
-        🚗 Waze
-    </button>
+        <button class="btn-rota"
+            onclick="tracarRota(${f.latitude},${f.longitude})">
+            🧭 Rota
+        </button>
+
+        <button class="btn-google"
+            onclick="abrirGoogleMaps(${f.latitude},${f.longitude})">
+            Google
+        </button>
+
+        <button class="btn-waze"
+            onclick="abrirWaze(${f.latitude},${f.longitude})">
+            Waze
+        </button>
+
+    </div>
+
+</div>
 `);
 
 });
