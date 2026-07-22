@@ -42,16 +42,131 @@ body{
 }
 
 .topbar{
+
     position:absolute;
-    z-index:1000;
-    top:10px;
+
+    top:12px;
+
     left:50%;
+
     transform:translateX(-50%);
+
+    width:min(980px, 95%);
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    gap:20px;
+
+    padding:12px 18px;
+
+    background:#ffffff;
+
+    border-radius:14px;
+
+    box-shadow:0 8px 25px rgba(0,0,0,.18);
+
+    z-index:9999;
+
+}
+    .titulo{
+
+    font-size:20px;
+
+    font-weight:700;
+
+    white-space:nowrap;
+
+    color:#2f343a;
+
+}
+    .pesquisa{
+
+    flex:1;
+
+    position:relative;
+
+}
+    .pesquisa input{
+
+    width:100%;
+
+    box-sizing:border-box;
+
+    padding:12px 18px 12px 45px;
+
+    border:1px solid #d9d9d9;
+
+    border-radius:30px;
+
+    outline:none;
+
+    font-size:15px;
+
+    transition:.25s;
+
+}
+    .pesquisa input:focus{
+
+    border-color:#0d6efd;
+
+    box-shadow:0 0 8px rgba(13,110,253,.20);
+
+}
+    .pesquisa i{
+
+    position:absolute;
+
+    left:18px;
+
+    top:50%;
+
+    transform:translateY(-50%);
+
+    color:#777;
+
+}
+    #resultadoPesquisa{
+
+    position:absolute;
+
+    top:52px;
+
+    width:100%;
+
     background:white;
-    padding:10px 20px;
+
     border-radius:12px;
-    box-shadow:0 0 10px rgba(0,0,0,0.25);
-    font-weight:bold;
+
+    box-shadow:0 8px 18px rgba(0,0,0,.18);
+
+    overflow:hidden;
+
+    display:none;
+
+    max-height:380px;
+
+    overflow-y:auto;
+
+}
+    .itemPesquisa{
+
+    padding:12px 16px;
+
+    cursor:pointer;
+
+    border-bottom:1px solid #ececec;
+
+    transition:.2s;
+
+}
+    .itemPesquisa:hover{
+
+    background:#f4f7fb;
+
 }
 
     .leaflet-marker-icon{
@@ -150,7 +265,26 @@ body{
 <body>
 
 <div class="topbar">
-🚛 Mapa Operacional BBM / Translovato - Apoio Mecânico Diesel
+
+    <div class="titulo">
+        🚛 Mapa Operacional BBM Logística
+    </div>
+
+    <div class="pesquisa">
+
+        <i class="fas fa-search"></i>
+
+        <input
+            type="text"
+            id="txtPesquisa"
+            placeholder="Pesquisar fornecedor, cidade, categoria ou filial..."
+            autocomplete="off"
+        >
+
+        <div id="resultadoPesquisa"></div>
+
+    </div>
+
 </div>
 
 <div id="map"></div>
