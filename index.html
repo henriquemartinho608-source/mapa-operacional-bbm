@@ -51,7 +51,7 @@ body{
 
     transform:translateX(-50%);
 
-    width:min(980px, 95%);
+    width: min(900px, 90%);
 
     display:flex;
 
@@ -349,6 +349,7 @@ const overlays = {
 };
 
 L.control.layers(baseMaps, overlays, {
+    position: 'bottomright',
     collapsed: false,
     autoZIndex: false
 }).addTo(map);
